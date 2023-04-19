@@ -1,0 +1,14 @@
+{
+  "name": "opa-boilerplate-client",
+  "version": "0.0.1",
+  "scripts": {
+    "start": "node dist/server.js",
+    "build": "echo 0",
+    "serve": "concurrently \"tsc --watch\" \"nodemon --delay 100ms dist/server.js\""
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "nodemon": "^2.0.22",
+    "typescript": "^5.0.4"
+  }
+}
