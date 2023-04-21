@@ -19,8 +19,8 @@
     "build-client": "cd client && npm run build",
     "install-client": "cd client && npm i",
     "install-server": "cd server && npm i",
-    "ci-client": "cd client && npm run ci",
-    "ci-server": "cd server && npm run ci",
+    "ci-client": "cd client && npm ci",
+    "ci-server": "cd server && npm ci",
     "copy-client": "cd client/dist && copyfiles --verbose ./**/* ../../server/dist/public",
     "patch-version": "npm --no-git-tag-version version patch",
     "clear": "rimraf server/dist"
