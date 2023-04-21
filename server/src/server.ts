@@ -7,6 +7,7 @@ import {roomWsRoute} from "./public/roomWsRoute";
 
 const PORT = process.env.PORT || 3000;
 const app = express();
+app.use(express.json());
 const appWs = expressWs(app);
 
 const unexpectedExceptionHandle = (cause: any) => console.error("Something went wrong: ", cause);

@@ -1,0 +1,16 @@
+# curl -H "Content-Type: application/json"
+#  --request POST
+#  -d '{"name":"India","iso2code":"IN"}'
+#  https://opa-production.up.railway.app/api/rooms
+
+# POST http://localhost:3000/api/rooms
+POST https://opa-production.up.railway.app/api/rooms
+Content-Type: application/json
+
+{
+  "name": "India",
+  "id": "id-1"
+}
+
+###
+
