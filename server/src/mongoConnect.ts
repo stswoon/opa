@@ -3,7 +3,8 @@ import mongoose from "mongoose";
 //https://github.com/railwayapp-templates/expressjs-mongoose
 //https://docs.railway.app/databases/mongodb
 //todo docs how to add plugin and env variale
-//todo local mongo
+//todo local mongo, or connect to real mongo?
+//todo remove id because it's already exist in mongo
 export const mongoConnect = async () => {
     //if (true) return;
     if (!process.env.MONGO_URL) {
