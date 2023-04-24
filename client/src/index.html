@@ -3,11 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Opa Boilerplate</title>
-<!--    <link rel="stylesheet" href="style.css">-->
+    <title>Greetings - Opa Boilerplate</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="main.js" defer type="module"></script>
+    <script src="https://unpkg.com/alpinejs@3.12.0/dist/cdn.min.js" defer></script>
 </head>
 <body>
-<!--<script src="index.js"></script>-->
+
+<script type="module">
+    import './main.js';
+</script>
+
+
+<simple-greeting name="Ivan"></simple-greeting>
 
 //TODO: choose framework lit or FAST
 //TODO: ts compilation in js (vite?
@@ -48,12 +56,45 @@
             `;
         }
     }
+
     window.customElements.define('hello-world', HelloWorld);
 </script>
 
 <hello-world name="Sam"></hello-world>
 
-</body>
+
+<br/>
+<br/>
+<br/>
+
+<script src="//unpkg.com/alpinejs" defer></script>
+
+<script>
+
+    // https://learn.javascript.ru/custom-elements
+
+    class AlpineWebComponent extends HTMLElement {
+        render() { // (1)
+            let name = this.getAttribute('name');
+            this.innerHTML =
+                `<div x-data="{ open: false }">
+                     <button @click="open = true">Pls, expand ${name}</button>
+                     <span x-show="open">Content...</span>
+                </div>`
+        }
+
+        connectedCallback() { // (2)
+            if (!this.rendered) {
+                this.render();
+                this.rendered = true;
+            }
+        }
+    }
+
+    customElements.define("alpine-web-component", AlpineWebComponent);
+</script>
+
+<alpine-web-component name="Test"></alpine-web-component>
 
 
 </body>
