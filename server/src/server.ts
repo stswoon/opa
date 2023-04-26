@@ -3,7 +3,7 @@ import expressWs from 'express-ws';
 import path from "path";
 import roomsRoutes from "./roomsRoutes";
 import {mongoConnect} from "./mongoConnect";
-import {roomWsRoute} from "./public/roomWsRoute";
+import {roomWsRoute} from "./roomWsRoute";
 
 const PORT = process.env.PORT || 3000;
 const app = express();

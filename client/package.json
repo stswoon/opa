@@ -1,14 +1,17 @@
 {
-  "name": "opa-boilerplate-client",
-  "version": "0.0.1",
+  "name": "my-vue-app",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
   "scripts": {
-    "start": "node dist/server.js",
-    "build": "echo 0",
-    "serve": "concurrently \"tsc --watch\" \"nodemon --delay 100ms dist/server.js\""
+    "dev": "vite",
+    "build": "tsc && vite build"
   },
-  "dependencies": {},
   "devDependencies": {
-    "nodemon": "^2.0.22",
-    "typescript": "^5.0.4"
+    "typescript": "^5.0.2",
+    "vite": "^4.3.2"
+  },
+  "dependencies": {
+    "alpinejs": "^3.12.0"
   }
 }
