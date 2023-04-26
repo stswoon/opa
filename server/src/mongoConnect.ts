@@ -1,4 +1,8 @@
 import mongoose from "mongoose";
+import {startDB} from "./localMongo";
+
+
+
 
 //https://github.com/railwayapp-templates/expressjs-mongoose
 //https://docs.railway.app/databases/mongodb
@@ -7,6 +11,11 @@ import mongoose from "mongoose";
 //todo remove id because it's already exist in mongo
 export const mongoConnect = async () => {
     //if (true) return;
+
+    if (true) {
+        await startDB()
+    }
+
     if (!process.env.MONGO_URL) {
         throw new Error("Please add the MONGO_URL environment variable");
     }
