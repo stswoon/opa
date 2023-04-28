@@ -1,4 +1,4 @@
-import { WS } from "./utils"
+import { WS } from "../utils"
 
 //TODO: lazy_remove for ws disconnect
 //TODO: interface to work with WS

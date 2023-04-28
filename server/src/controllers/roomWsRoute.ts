@@ -1,6 +1,6 @@
-import {WS} from "./utils";
+import {WS} from "../utils";
 import express from "express";
-import {createOrJoinRoom} from "./roomService";
+import {createOrJoinRoom} from "../services/roomService";
 
 export const roomWsRoute = (ws: WS, req: express.Request, next: any): void => {
     const {roomId, userId, userName} = req.query as { roomId: string, userId: string, userName: string };

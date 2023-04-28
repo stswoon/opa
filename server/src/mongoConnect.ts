@@ -1,29 +1,34 @@
 import mongoose from "mongoose";
-import {startDB} from "./localMongo";
 import {config} from "./utils";
+import mongoUnit from "mongo-unit";
 
-
-
-
-//https://github.com/railwayapp-templates/expressjs-mongoose
-//https://docs.railway.app/databases/mongodb
-//todo docs how to add plugin and env variale
-//todo local mongo, or connect to real mongo?
-//todo remove id because it's already exist in mongo
-export const mongoConnect = async () => {
-    //if (true) return;
-
-    if (config.isLocalMongo()) {
-        await startDB()
-    }
-
-    if (!process.env.MONGO_URL) {
-        throw new Error("Please add the MONGO_URL environment variable");
-    }
-    console.log(`Connecting to ${process.env.MONGO_URL}`);
+const startLocalMongo = async () => {
+    console.log("Local Mongo starting...");
     try {
+        await mongoUnit.start();
+        console.log("Local Mongo is started, url = ", mongoUnit.getUrl())
+        process.env.MONGO_URL = mongoUnit.getUrl()
+    } catch (e) {
+        console.error("Local Mongo start error: ", e);
+        throw e;
+    }
+    // return mongoUnit.stop()
+}
+
+export const mongoConnect = async () => {
+    try {
+        if (config.isLocalMongo()) {
+            await startLocalMongo();
+        }
+        console.log(`Connecting to mongoUrl = ${process.env.MONGO_URL}`);
+        if (!process.env.MONGO_URL) {
+            throw new Error("MONGO_URL is empty, please add the MONGO_URL environment variable");
+        }
         await mongoose.connect(process.env.MONGO_URL);
     } catch (e) {
         console.error("Failed to connect to db", e)
+        throw e;
     }
 }
+
+//todo: jsmaps for front
