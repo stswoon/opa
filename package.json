@@ -1,32 +1,18 @@
 {
   "name": "opa-boilerplate",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "One Page App boilerplate",
   "engines": {
     "node": "14.x"
   },
   "license": "MIT",
   "scripts": {
-    "start": "npm run start-server",
-    "build": "npm ci && npm run ci-server && npm run build-server",
-    "prod": "npm ci && npm run clear && npm run patch-version && npm run ci-server && npm run build-server && npm run ci-client && npm run build-client && npm run copy-client",
-    "//build": "npm i && npm run clear && npm run patch-version && npm run install-server && npm run build-server && npm run install-client && npm run build-client && npm run copy-client",
-    "serve-server": "cd server && npm run serve",
-    "serve-client": "cd client && npm run serve",
-    "---": "echo 0",
-    "start-server": "cd server && npm run start",
-    "build-server": "cd server && npm run build",
-    "build-client": "cd client && npm run build",
-    "install-client": "cd client && npm i",
-    "install-server": "cd server && npm i",
-    "ci-client": "cd client && npm ci",
-    "ci-server": "cd server && npm ci",
-    "copy-client": "cd client/dist && copyfiles --verbose ./**/* ../../server/dist/public",
-    "patch-version": "npm --no-git-tag-version version patch",
-    "clear": "rimraf server/dist"
-  },
-  "devDependencies": {
-    "copyfiles": "^2.4.1",
-    "rimraf": "^5.0.0"
+    "build": "npm run server:ci-and-build && npm run client:ci-and-build && npm run client:copy && npm run patch-version",
+    "start": "cd server && npm run start",
+    "-----": "echo 0",
+    "server:ci-and-build": "cd server && npm ci && npm run build",
+    "client:ci-and-build": "cd client && npm ci && npm run build",
+    "client:copy": "cd server && npm run copyClientDist",
+    "patch-version": "npm --no-git-tag-version version patch"
   }
 }

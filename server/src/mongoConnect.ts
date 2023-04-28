@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import {startDB} from "./localMongo";
+import {config} from "./utils";
 
 
 
@@ -12,7 +13,7 @@ import {startDB} from "./localMongo";
 export const mongoConnect = async () => {
     //if (true) return;
 
-    if (true) {
+    if (config.isLocalMongo()) {
         await startDB()
     }
 
