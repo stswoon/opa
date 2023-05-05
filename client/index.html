@@ -5,16 +5,18 @@
     <link rel="icon" type="image/svg+xml" href="favicon.svg"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link rel="manifest" href="manifest.json">
-    <title>OPA Boilerplate - APP_VERSION</title>  <!--TODO-->
+    <title>OPA Boilerplate - <%-APP_VERSION%></title>
     <meta name="description" content="This is example of OPA Boilerplate">
     <meta name="keywords" content="OPA Boilerplate, OPA, Boilerplate">
+    <script type="module" src="/src/main.ts" defer></script>
 </head>
 <body>
 
-<script type="module" src="/src/main.ts"></script>
+<opa-header></opa-header>
+<div class="opa-content">
+    <opa-chat></opa-chat>
+    <opa-user-list></opa-user-list>
+</div>
 
-<room-component></room-component>
-
-<!--  TODO: chat room-->
 </body>
 </html>

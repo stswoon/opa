@@ -12,7 +12,11 @@ const getUserId = (): string | null => localStorage.getItem("userId");
 const setUserName = (userName: string): void => localStorage.setItem("userName", userName);
 const getUserName = (): string | null => localStorage.getItem("userName");
 
-export const ApplicationService = {
+const showUsernamePopup = () => {
+
+}
+
+export const AppService = {
     // attachWsToRoom,
     // throwCard,
     // flipCards,
@@ -21,6 +25,7 @@ export const ApplicationService = {
     getUserId,
     setUserName,
     getUserName,
+    showUsernamePopup
 }
 
 
