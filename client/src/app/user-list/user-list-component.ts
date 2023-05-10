@@ -1,19 +1,10 @@
 import "./user-list-component.css";
 import template from "./user-list-component.html?raw";
+import {AbstractComponent} from "../abstract-component";
 
-class UserListComponent extends HTMLElement {
-    rendered: boolean = false;
-
-    render() {
-        let users = this.getAttribute("users");
-        this.innerHTML = template;
-    }
-
-    connectedCallback() {
-        if (!this.rendered) {
-            this.render();
-            this.rendered = true;
-        }
+class UserListComponent extends AbstractComponent {
+    constructor() {
+        super(template);
     }
 
     static get observedAttributes() {

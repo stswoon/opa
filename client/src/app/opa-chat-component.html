@@ -7,6 +7,7 @@
             </div>
         </template>
     </div>
+    <span>${test}</span>
     <div class="opa-chat-controls" x-data="{msg:''}">
         <textarea x-model="msg"></textarea>
         <button @click="window.app.send(msg)">Send</button>

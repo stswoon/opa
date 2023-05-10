@@ -1,25 +1,40 @@
+// import "./user-list-component.css";
+// import template from "./user-list-component.html?raw";
+import {interpolateTemplateString} from "./utils";
+
 //https://learn.javascript.ru/custom-elements
-import "./user-list-component.css";
-import template from "./user-list-component.html?raw";
+export class AbstractComponent extends HTMLElement {
+    protected readonly template: string;
 
-class UserListComponent extends HTMLElement {
-    rendered: boolean = false;
-
-    render() {
-        let users = this.getAttribute("users");
-        this.innerHTML = template;
+    protected constructor(template: string) {
+        super();
+        this.template = template;
     }
 
-    connectedCallback() {
-        if (!this.rendered) {
-            this.render();
-            this.rendered = true;
+    protected render() {
+        const params = {};
+        for (let attribute in AbstractComponent.observedAttributes) {
+            params[attribute] = this.getAttribute(attribute);
         }
+        this.innerHTML = interpolateTemplateString(this.template, params);
     }
 
-    static get observedAttributes() {
-        return ["users"];
+    static get observedAttributes(): string[] {
+        return [];
+    }
+
+    // attributeChangedCallback(name, oldValue, newValue)
+    protected attributeChangedCallback(): void {
+        this.render();
+    }
+
+    private rendered: boolean = false;
+
+    private connectedCallback(): void {
+        if (this.rendered) return;
+        this.rendered = true;
+        this.render();
     }
 }
 
-customElements.define("user-list", UserListComponent);
+// customElements.define("opa-username-popup", UsernamePopupComponent);
