@@ -16,6 +16,10 @@ const showUsernamePopup = () => {
 
 }
 
+const send = (msg: string): void => {
+    alert(msg);
+}
+
 export const AppService = {
     // attachWsToRoom,
     // throwCard,
@@ -25,7 +29,8 @@ export const AppService = {
     getUserId,
     setUserName,
     getUserName,
-    showUsernamePopup
+    showUsernamePopup,
+    send
 }
 
 

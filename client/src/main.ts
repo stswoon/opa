@@ -7,8 +7,14 @@ import "uikit/dist/css/uikit.min.css"
 import './style.css'
 
 import {AppService} from "./app/AppService";
-(window as any).AppService = AppService;
+(window as any).app = AppService;
 
-import './app/room/RoomComponent.ts'
-import './app/username/UsernamePopupComponent'
 import './app/OpaHeaderComponent'
+import './app/username/UsernamePopupComponent'
+import './app/OpaChatComponent.ts'
+import './app/user-list/user-list-component.ts'
+
+//TODO
+// if ('serviceWorker' in navigator) {
+//     navigator.serviceWorker.register('sw.js', {scope: './'})
+// }

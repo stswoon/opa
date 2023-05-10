@@ -12,13 +12,14 @@ class UsernamePopupComponent extends HTMLElement {
         // let onchange = this.getAttribute("onchange");
         this.innerHTML = `
             <div uk-modal id="changeUsernamePopup">
-                <div class="uk-modal-dialog uk-modal-body" x-data="{username:'${username}'}>
+                <div class="uk-modal-dialog uk-modal-body" x-data="{username:'${username}'}">
                     <h2 class="uk-modal-title">Change user name</h2>
                     <div class="username-component">
                         <img src="${userLogo}" />
                         <input type="text" x-model="username">
                     </div>
-                    <button class="uk-modal-close" type="button" x-on:click="appService.setUserName(username)">${okButtonText}</button>
+                    <button class="uk-modal-close" type="button"
+                        x-on:click="appService.setUserName(username)">${okButtonText}</button>
                 </div>
             </div>
         `;

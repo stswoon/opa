@@ -1,0 +1,14 @@
+<div class="opa-chat">
+    <div class="opa-chat-messages-list">
+        <template x-for="message in messages">
+            <div class="opa-chat-message">
+                <h6 x-text="message.author"></h6>
+                <span x-text="message.text"></span>
+            </div>
+        </template>
+    </div>
+    <div class="opa-chat-controls" x-data="{msg:''}">
+        <textarea x-model="msg"></textarea>
+        <button @click="window.app.send(msg)">Send</button>
+    </div>
+</div>
