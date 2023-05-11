@@ -3,7 +3,7 @@
 import {interpolateTemplateString} from "./utils";
 
 //https://learn.javascript.ru/custom-elements
-export class AbstractComponent extends HTMLElement {
+export abstract class AbstractComponent extends HTMLElement {
     protected readonly template: string;
 
     protected constructor(template: string) {
@@ -13,7 +13,8 @@ export class AbstractComponent extends HTMLElement {
 
     protected render() {
         const params = {};
-        for (let attribute in AbstractComponent.observedAttributes) {
+        console.log((this.constructor as any).observedAttributes);
+        for (let attribute in (this.constructor as any).observedAttributes) {
             params[attribute] = this.getAttribute(attribute);
         }
         this.innerHTML = interpolateTemplateString(this.template, params);
@@ -23,7 +24,6 @@ export class AbstractComponent extends HTMLElement {
         return [];
     }
 
-    // attributeChangedCallback(name, oldValue, newValue)
     protected attributeChangedCallback(): void {
         this.render();
     }
@@ -36,5 +36,3 @@ export class AbstractComponent extends HTMLElement {
         this.render();
     }
 }
-
-// customElements.define("opa-username-popup", UsernamePopupComponent);
