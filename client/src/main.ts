@@ -1,13 +1,15 @@
 import "alpinejs/dist/cdn.min"
+
 import UIkit from "uikit/dist/js/uikit.min"
 (window as any).UIkit = UIkit;
 // import "uikit/dist/js/uikit-icons.min"
 import "uikit/dist/css/uikit.min.css"
 
-import './style.css'
-
-import {AppService} from "./app/AppService";
+import {AppService} from "./app/services/AppService";
 (window as any).app = AppService;
+AppService.init()
+
+import './style.css'
 
 import './app/OpaHeaderComponent'
 import './app/username/UsernamePopupComponent'

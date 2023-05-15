@@ -14,7 +14,7 @@ export abstract class AbstractComponent extends HTMLElement {
     protected render() {
         const params = {};
         console.log((this.constructor as any).observedAttributes);
-        for (let attribute in (this.constructor as any).observedAttributes) {
+        for (let attribute of (this.constructor as any).observedAttributes) {
             params[attribute] = this.getAttribute(attribute);
         }
         this.innerHTML = interpolateTemplateString(this.template, params);
