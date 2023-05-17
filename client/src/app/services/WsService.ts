@@ -21,7 +21,10 @@ const attachWsToRoom = (wsRoomConfig: WsRoomConfig, wsRoomCallback: WsRoomCallba
 
     const {roomId, userId, userName} = wsRoomConfig;
     const wsProtocol = window.location.protocol === "https:" ? "wss" : "ws";
-    ws = new WebSocket(`${wsProtocol}://${window.location.host}/api/roomState?roomId=${roomId}&userId=${userId}&userName=${userName}`);
+    // const domain = window.location.host;
+    const domain = "localhost:3000"; //TODO
+
+    ws = new WebSocket(`${wsProtocol}://${domain}/api/roomState?roomId=${roomId}&userId=${userId}&userName=${userName}`);
 
     const wsConnectionTimeoutId = setTimeout(() => {
         console.error("Failed to connect WS after 30 sec");
@@ -78,9 +81,9 @@ const attachWsToRoom = (wsRoomConfig: WsRoomConfig, wsRoomCallback: WsRoomCallba
     };
 }
 
-const send = (message: string): void => ws.send(message);
+const send = (message: any): void => ws.send(JSON.stringify(message));
 
 export const WsService = {
-    attachWsToRoom
+    attachWsToRoom,
     send
 };

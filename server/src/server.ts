@@ -24,7 +24,7 @@ app.use("/api/rooms", roomsRoutes);
 appWs.app.ws("/api/roomState", roomWsRoute);
 
 app.use(express.static(__dirname + "/public", {extensions: ["html"]}));
-app.get("/room", (req: Request, res: Response) => res.sendFile(path.join(__dirname + "/public/index.html")));
+// app.get("/room", (req: Request, res: Response) => res.sendFile(path.join(__dirname + "/public/index.html")));
 
 console.info("Application starting...")
 mongoConnect()

@@ -16,6 +16,9 @@ const startLocalMongo = async () => {
 }
 
 export const mongoConnect = async () => {
+    if (true) {
+        return;
+    }
     try {
         if (config.isLocalMongo()) {
             await startLocalMongo();

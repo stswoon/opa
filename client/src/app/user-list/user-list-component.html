@@ -1,5 +1,5 @@
-<div class="opa-user-list" x-model="{users:${users}">
+<div id="opa-user-list" class="opa-user-list" x-data='{ users : ${users} }'>
     <template x-for="user in users">
-        <span x-text="user"></span>
+        <div x-text="user.name"></div>
     </template>
 </div>

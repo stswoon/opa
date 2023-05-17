@@ -37,7 +37,7 @@ const init = (): void => {
     }
 }
 
-const send = (message: string): void => WsService.send(message);
+const send = (message: string): void => WsService.send({userId: getUserId(), text: message});
 
 const connect = (): void => {
     const wsRoomCallback: WsRoomCallback = {
