@@ -32,7 +32,7 @@ const init = (): void => {
     }
     roomId = (new URL(location.href)).searchParams.get("room");
     if (roomId) {
-        document.getElementById("opa-content").style.display = "flex";
+        // document.getElementById("opa-content").style.display = "flex";
         connect();
     }
 }

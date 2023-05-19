@@ -1,3 +1,28 @@
-.opa-content {
-  display: flex;
+.opa-app-grid {
+    margin: 10px;
+    display: grid;
+    grid-template-areas:
+        "a a a"
+        "b b с"
+        "b b с";
+        "d d с";
+    gap: 5px;
+    /*grid-template-rows: auto auto auto;*/
+    /*grid-template-columns: auto auto auto;*/
+}
+
+opa-header {
+    grid-area: a;
+}
+
+opa-messages {
+    grid-area: b;
+}
+
+opa-user-list {
+    grid-area: c;
+}
+
+opa-controls {
+    grid-area: d;
 }
