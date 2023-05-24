@@ -8,9 +8,4 @@
             </div>
         </template>
     </div>
-    <div class="opa-chat-controls" x-data="{msg:''}">
-        <textarea x-model="msg"></textarea>
-        <ui5-button @click="window.app.send(msg); throw new Error('anneq')" design="Emphasized">Send</ui5-button>
-<!--        <button @click="window.app.send(msg)">Send</button>-->
-    </div>
 </div>

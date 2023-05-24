@@ -1,25 +1,13 @@
-import "./opa-chat-component.css";
 import template from "./opa-chat-component.html?raw";
-import {ProcessMessageService} from "./services/ProcessMessageService";
+import {ProcessMessageService} from "../services/ProcessMessageService";
+import {interpolateTemplateString} from "../utils";
 
-const interpolateString = function (s, params) {
-    const names = Object.keys(params);
-    const vals = Object.values(params);
-    return new Function(...names, `return \`${s}\`;`)(...vals);
-}
-
-const interpolate2 = function (s) {
-    return eval("`" + s + "`");
-}
-
-class OpaChatComponent extends HTMLElement {
+class OpaMessages extends HTMLElement {
     rendered: boolean = false;
-
     messages: [];
 
     constructor() {
         super();
-
         ProcessMessageService.onChange((appState) => {
             this.messages = appState.messages.map(msg => {
                 let user = appState.users.find(user => user.id === msg.userId);
@@ -32,12 +20,11 @@ class OpaChatComponent extends HTMLElement {
                 return {author: userName, text: msg.text};
             })
             this.render();
-        })
+        });
     }
 
     render() {
-
-        this.innerHTML = interpolateString(template, {messages: JSON.stringify(this.messages)});
+        this.innerHTML = interpolateTemplateString(template, {messages: JSON.stringify(this.messages)});
     }
 
     connectedCallback() {
@@ -48,4 +35,4 @@ class OpaChatComponent extends HTMLElement {
     }
 }
 
-customElements.define("opa-chat-component", OpaChatComponent);
+customElements.define("opa-messages", OpaMessages);

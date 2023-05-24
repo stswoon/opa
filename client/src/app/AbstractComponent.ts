@@ -2,11 +2,13 @@
 // import template from "./user-list-component.html?raw";
 import {interpolateTemplateString} from "./utils";
 
+export type templateTypeFunction = (params: any) => string;
+
 //https://learn.javascript.ru/custom-elements
 export abstract class AbstractComponent extends HTMLElement {
-    protected readonly template: string;
+    protected readonly template: templateTypeFunction;
 
-    protected constructor(template: string) {
+    protected constructor(template: templateTypeFunction) {
         super();
         this.template = template;
     }
@@ -17,16 +19,16 @@ export abstract class AbstractComponent extends HTMLElement {
         for (let attribute of (this.constructor as any).observedAttributes) {
             params[attribute] = this.getAttribute(attribute);
         }
-        this.innerHTML = this.getTemplate(params);
+        this.innerHTML = this.template(params);
         // this.innerHTML = interpolateTemplateString(this.template, params);
     }
 
-    protected getTemplate(params): string {
-        if (Object.values(params).includes(null)) {
-            return "";
-        }
-        return interpolateTemplateString(this.template, params);
-    }
+    // protected getTemplate(params): string {
+    //     if (Object.values(params).includes(null)) {
+    //         return "";
+    //     }
+    //     return interpolateTemplateString(this.template, params);
+    // }
 
     static get observedAttributes(): string[] {
         return [];

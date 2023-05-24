@@ -16,10 +16,11 @@ AppService.init();
 
 import './style.css'
 
-import './app/OpaHeaderComponent'
+import './app/components/opa-header'
+import './app/components/opa-messages'
+import './app/components/opa-send-control'
+import './app/components/opa-user-list'
 import './app/username/UsernamePopupComponent'
-import './app/OpaChatComponent.ts'
-import './app/user-list/user-list-component.ts'
 
 //TODO
 // if ('serviceWorker' in navigator) {

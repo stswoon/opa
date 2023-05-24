@@ -1,28 +1,71 @@
-.opa-app-grid {
-    margin: 10px;
+* {
+    box-sizing: border-box;
+}
+
+.opa-content-layout {
+    /*box-sizing: border-box;*/
+    height: 100vh;
+    width: 95vw;
+    padding: 20px;
+    margin: 0 auto;
     display: grid;
     grid-template-areas:
         "a a a"
-        "b b с"
-        "b b с";
-        "d d с";
+        "b b d"
+        "b b d"
+        "c c d";
     gap: 5px;
-    /*grid-template-rows: auto auto auto;*/
-    /*grid-template-columns: auto auto auto;*/
+    grid-template-columns: auto auto 20%;
+    grid-template-rows: 50px 1fr 1fr 50px;
 }
 
-opa-header {
+.area-a {
     grid-area: a;
 }
 
-opa-messages {
+.area-b {
     grid-area: b;
 }
 
-opa-user-list {
+.area-c {
     grid-area: c;
 }
 
-opa-controls {
+.area-d {
     grid-area: d;
+}
+
+.opa-header {
+    /*box-sizing: border-box;*/
+    /*border: 1px solid red;*/
+}
+
+.opa-user-list {
+    /*box-sizing: border-box;*/
+    border: 1px solid red;
+}
+
+.opa-chat {
+    /*box-sizing: border-box;*/
+    border: 1px solid red;
+    overflow: auto;
+    height: 100%;
+}
+
+.opa-chat-controls {
+    /*box-sizing: border-box;*/
+    /*border: 1px solid red;*/
+    display: flex;
+    height: 100%;
+    align-items: center;
+    gap: 10px;
+}
+
+.opa-chat-controls > textarea {
+    height: 100%;
+    width: 100%;
+}
+
+.opa-chat-controls > ui5-button {
+    width: 100px;
 }

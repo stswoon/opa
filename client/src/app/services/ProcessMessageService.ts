@@ -17,7 +17,7 @@ export interface AppState {
 
 const process = (appState: AppState): void => {
 
-    document.querySelector("user-list").setAttribute("users", JSON.stringify(appState.users));
+    document.querySelector("opa-user-list").setAttribute("users", JSON.stringify(appState.users));
     // window.
 
     callbacks.forEach(callback => callback(appState));

@@ -12,13 +12,12 @@
 </head>
 <body>
 
-<div class="opa-app-grid">
-    <opa-header></opa-header>
-    <opa-username-popup id="username-popup" okButtonText="Change Name"></opa-username-popup>
-<!--    <div id="opa-content" class="opa-content" style="display: none">-->
-        <opa-chat-component></opa-chat-component>
-        <user-list></user-list>
-<!--    </div>-->
+<opa-username-popup id="username-popup" okButtonText="Change Name"></opa-username-popup>
+<div class="opa-content-layout">
+    <opa-header class="area-a"></opa-header>
+    <opa-messages class="area-b"></opa-messages>
+    <opa-send-control class="area-c"></opa-send-control>
+    <opa-user-list class="area-d"></opa-user-list>
 </div>
 
 </body>
