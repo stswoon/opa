@@ -9,7 +9,8 @@ const getUserName = (): string | null => localStorage.getItem("userName");
 
 const showUsernamePopup = (): void => {
     document.getElementById("username-popup").setAttribute("username", getUserName() || "");
-    (window as any).UIkit.modal("#changeUsernamePopup").show()
+    document.getElementById("username-popup").setAttribute("display", "block");
+    // (window as any).opaUsernamePopup.show();
 }
 
 let roomId: string | null;
