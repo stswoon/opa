@@ -6,6 +6,8 @@ import "@ui5/webcomponents/dist/Button";
 import "@ui5/webcomponents/dist/List";
 import "@ui5/webcomponents/dist/StandardListItem";
 import "@ui5/webcomponents/dist/Dialog";
+import "@ui5/webcomponents/dist/Title";
+import "@ui5/webcomponents/dist/Toast";
 
 import {AppService} from "./app/services/AppService";
 (window as any).app = AppService;
@@ -18,6 +20,7 @@ import './app/components/opa-messages'
 import './app/components/opa-send-control'
 import './app/components/opa-user-list'
 import './app/components/opa-username-popup/opa-username-popup'
+import './app/components/opa-create-room-info'
 
 //TODO
 // if ('serviceWorker' in navigator) {

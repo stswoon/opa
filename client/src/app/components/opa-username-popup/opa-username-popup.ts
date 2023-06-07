@@ -1,10 +1,12 @@
 import "./username.css";
 import userLogo from "./user.svg";
 import {AbstractComponent} from "../../AbstractComponent";
+import {AppService} from "../../services/AppService";
 
-const template = ({username = "", display = "block"}) => `
-<div style="display:${display}">
-    <ui5-dialog id="opa-username-popup"
+
+const template = ({username = ""}) => `
+<div>
+    <ui5-dialog id="opa-username-dialog"
                 header-text="Change user name"
                 x-data="{username:'${username}'}"
     >
@@ -13,29 +15,40 @@ const template = ({username = "", display = "block"}) => `
             <input type="text" x-model="username">
         </div>
         <div slot="footer">
-            <ui5-button x-on:click="opaUsernamePopup.close(); app.setUserName(username);">Save</ui5-button>
+            <ui5-button>Save</ui5-button>
         </div>
     </ui5-dialog>
+    <ui5-toast id="wcToastTC" placement="TopCenter">Please enter username</ui5-toast>
 </div>
 `;
 
+//TODO blink because of username change -> make two components
 //TODO create popup with template
 class OpaUsernamePopup extends AbstractComponent {
     constructor() {
         super(template);
     }
 
+
     protected render() {
         super.render();
-        (window as any).opaUsernamePopup = document.getElementById("opa-username-popup");
-        console.log("anneq2::" + (window as any).opaUsernamePopup);
-        setTimeout(() => {
-            (window as any).opaUsernamePopup.show();
+        //todo change to this
+        const dialogCloser = document.querySelector("#opa-username-dialog ui5-button");
+        const dialogInput: any = document.querySelector("#opa-username-dialog input");
+        dialogCloser.addEventListener("click", () => {
+            const username = dialogInput.value;
+            if (username) {
+                AppService.setUserName(username);
+                AppService.closeUsernamePopup();
+            } else {
+                (window as any).wcToastTC.show();
+            }
         });
     }
 
     static get observedAttributes() {
-        return ["username", "display"];
+        // return [];
+        return ["username"];
     }
 }
 

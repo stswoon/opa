@@ -2,6 +2,10 @@
     box-sizing: border-box;
 }
 
+body {
+    margin: 0;
+}
+
 .opa-content-layout {
     /*box-sizing: border-box;*/
     height: 100vh;

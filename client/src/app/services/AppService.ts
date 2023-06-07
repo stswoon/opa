@@ -8,9 +8,14 @@ const setUserName = (userName: string): void => localStorage.setItem("userName",
 const getUserName = (): string | null => localStorage.getItem("userName");
 
 const showUsernamePopup = (): void => {
-    document.getElementById("username-popup").setAttribute("username", getUserName() || "");
-    document.getElementById("username-popup").setAttribute("display", "block");
-    // (window as any).opaUsernamePopup.show();
+    document.getElementById("opa-username-popup").setAttribute("username", getUserName() || "");
+    const dialog: any = document.getElementById("opa-username-dialog");
+    dialog.show();
+}
+
+const closeUsernamePopup = (): void => {
+    const dialog: any = document.getElementById("opa-username-dialog");
+    dialog.close();
 }
 
 let roomId: string | null;
@@ -28,14 +33,35 @@ const init = (): void => {
     if (getUserId() == null) {
         setUserId(uuid());
     }
-    if (getUserName() == null) {
-        showUsernamePopup();
-    }
     roomId = (new URL(location.href)).searchParams.get("room");
     if (roomId) {
-        // document.getElementById("opa-content").style.display = "flex";
+        showRoom()
+    } else {
+        hideRoom()
+    }
+    if (getUserName() == null) {
+        setTimeout(() => {
+            showUsernamePopup();
+        }); //show popup after it will be rendered
+        return;
+    }
+    if (roomId) {
         connect();
     }
+}
+
+const showRoom = (): void => {
+    document.getElementsByTagName("opa-messages")[0].style.display = "block";
+    document.getElementsByTagName("opa-send-control")[0].style.display = "block";
+    document.getElementsByTagName("opa-user-list")[0].style.display = "block";
+    document.getElementsByTagName("opa-create-room-info")[0].style.display = "none";
+}
+
+const hideRoom = (): void => {
+    document.getElementsByTagName("opa-messages")[0].style.display = "none";
+    document.getElementsByTagName("opa-send-control")[0].style.display = "none";
+    document.getElementsByTagName("opa-user-list")[0].style.display = "none";
+    document.getElementsByTagName("opa-create-room-info")[0].style.display = "block";
 }
 
 const send = (message: string): void => WsService.send({userId: getUserId(), text: message});
@@ -64,6 +90,7 @@ export const AppService = {
     setUserName,
     getUserName,
     showUsernamePopup,
+    closeUsernamePopup,
     init,
 
     send
