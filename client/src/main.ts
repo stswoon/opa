@@ -8,6 +8,7 @@ import "@ui5/webcomponents/dist/StandardListItem";
 import "@ui5/webcomponents/dist/Dialog";
 import "@ui5/webcomponents/dist/Title";
 import "@ui5/webcomponents/dist/Toast";
+import "@ui5/webcomponents/dist/Input";
 
 import {AppService} from "./app/services/AppService";
 (window as any).app = AppService;
