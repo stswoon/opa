@@ -10,6 +10,8 @@
     "build": "npm run server:ci-and-build && npm run client:ci-and-build && npm run client:copy && npm run patch-version",
     "start": "cd server && npm run start",
     "-----": "echo 0",
+    "server:serve": "cd server && npm run serve",
+    "client:serve": "cd client && npm run dev",
     "server:ci-and-build": "cd server && npm ci && npm run build",
     "client:ci-and-build": "cd client && npm ci && npm run build",
     "client:copy": "cd server && npm run copyClientDist",

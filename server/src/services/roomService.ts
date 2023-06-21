@@ -41,7 +41,7 @@ export const createOrJoinRoom = (ws: WS, roomId: string, userId: string, userNam
     if (!room.users.find(user => user.id === userId)) {
         room.users.push({id: userId, name: userName});
     }
-    room.messages.push({id: Math.random(), text: "system: user was added", userId: "_system", date: now().getTime()});
+    room.messages.push({id: Math.random(), text: `user "${userName}" was added`, userId: "_system", date: now().getTime()});
     roomWsMap[roomId][userId] = ws;
     broadcastRoom(roomId);
 }

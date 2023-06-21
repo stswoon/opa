@@ -1,14 +1,16 @@
 import {v4 as uuid} from "uuid";
 import {WsRoomCallback, WsService} from "./WsService";
-import {ProcessMessageService} from "./ProcessMessageService";
+import {AppState} from "./AppStateModels";
 
+const setUserNewId = (): void => setUserId(uuid());
 const setUserId = (userId: string): void => localStorage.setItem("userId", userId);
 const getUserId = (): string | null => localStorage.getItem("userId");
 const setUserName = (userName: string): void => localStorage.setItem("userName", userName);
 const getUserName = (): string | null => localStorage.getItem("userName");
 
 const showUsernamePopup = (): void => {
-    document.getElementById("opa-username-popup").setAttribute("username", getUserName() || "");
+    // document.getElementById("opa-username-popup").setAttribute("username", getUserName() || "");
+    document.querySelector(".opa-username-component > ui5-input").setAttribute("value", getUserName() || "");
     const dialog: any = document.getElementById("opa-username-dialog");
     dialog.show();
 }
@@ -46,7 +48,7 @@ const init = (): void => {
         return;
     }
     if (roomId) {
-        connect();
+        connect(roomId, getUserId()!, getUserName()!);
     }
 }
 
@@ -66,7 +68,7 @@ const hideRoom = (): void => {
 
 const send = (message: string): void => WsService.send({userId: getUserId(), text: message});
 
-const connect = (): void => {
+const connect = (roomId: string, userId: string, userName: string): void => {
     const wsRoomCallback: WsRoomCallback = {
         close(): void {
             alert(close);
@@ -75,25 +77,37 @@ const connect = (): void => {
             alert(error.message);
         },
         message(message: any): void {
-            ProcessMessageService.process(message);
+            const state: AppState = message;
+            processStateChange(state);
         }
     }
-    WsService.attachWsToRoom({roomId, userId: getUserId(), userName: getUserName()}, wsRoomCallback);
+    WsService.attachWsToRoom({roomId, userId, userName}, wsRoomCallback);
+}
+
+const processStateChange = (appState: AppState): void => {
+    callbacks.forEach(callback => callback(appState));
+}
+let callbacks: Function[] = [];
+const onStateChange = (callback: Function): any => {
+    callbacks.push(callback);
+    return {unsubscribe: () => callbacks = callbacks.filter(item => item != callback)};
 }
 
 export const AppService = {
     createRoom,
     leaveRoom,
     getRoomId,
+    setUserNewId,
     setUserId,
     getUserId,
     setUserName,
     getUserName,
     showUsernamePopup,
     closeUsernamePopup,
-    init,
 
-    send
+    init,
+    send,
+    onStateChange
 }
 
 
