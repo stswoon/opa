@@ -1,5 +1,4 @@
 import "alpinejs/dist/cdn.min.js"
-// import "alpinejs/dist/cdn.js"
 
 //https://sap.github.io/ui5-webcomponents/playground/components
 import "@ui5/webcomponents/dist/Button";
@@ -17,11 +16,11 @@ AppService.init();
 import './style.css'
 
 import './app/components/opa-header'
-import './app/components/opa-messages/opa-messages'
+import './app/components/opa-messages'
 import './app/components/opa-send-control'
 import './app/components/opa-user-list'
 import './app/components/opa-create-room-info'
-import './app/components/opa-username-popup/opa-username-popup'
+import './app/components/opa-username-popup'
 
 //TODO
 // if ('serviceWorker' in navigator) {

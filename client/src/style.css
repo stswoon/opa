@@ -18,7 +18,7 @@ body {
         "b b d"
         "c c d";
     gap: 5px;
-    grid-template-columns: auto auto 20%;
+    grid-template-columns: auto auto minmax(150px, 20%);
     grid-template-rows: 50px 1fr 1fr 50px;
 }
 
@@ -45,12 +45,6 @@ body {
     border: 1px solid red;
 }
 
-.opa-chat {
-    border: 1px solid red;
-    overflow: auto;
-    height: 100%;
-}
-
 .opa-chat-controls {
     display: flex;
     height: 100%;
@@ -66,3 +60,41 @@ body {
 .opa-chat-controls > ui5-button {
     width: 100px;
 }
+
+.opa-messages {
+    border: 1px solid red;
+    overflow: auto;
+    height: 100%;
+}
+
+.opa-messages_item-date {
+    color: gray;
+}
+
+.opa-messages_item-author {
+    font-weight: bold;
+}
+
+.opa-messages_item {
+    display: flex;
+    padding-bottom: 5px;
+}
+
+.opa-messages_item > span {
+    padding-right: 3px;
+}
+
+.opa-messages_item._system {
+    font-size: x-small;
+    color: gray;
+    justify-content: center;
+}
+
+.opa-messages_item._system > .opa-messages_item-author {
+    display: none;
+}
+
+.user-name-component {
+    display: flex;
+}
+

@@ -1,7 +1,6 @@
-import "./username.css";
-import userLogo from "./user.svg";
-import {AbstractComponent} from "../../AbstractComponent";
-import {AppService} from "../../services/AppService";
+import userLogo from "../icons/user.svg";
+import {AbstractComponent} from "../AbstractComponent";
+import {AppService} from "../services/AppService";
 
 const template = ({username = ""}) => `
 <ui5-dialog id="opa-username-dialog">

@@ -14,29 +14,25 @@ export type templateTypeFunction = (params: any) => string;
 //https://learn.javascript.ru/custom-elements
 export abstract class AbstractComponent extends HTMLElement {
     protected readonly template: templateTypeFunction;
+    protected state: any = {};
 
-    protected constructor(template: templateTypeFunction) {
+    protected constructor(template: templateTypeFunction, state?: any) {
         super();
         this.template = template;
+        this.state = state || {};
     }
 
     protected render() {
-        const params = {};
-        console.log((this.constructor as any).observedAttributes);
-        for (let attribute of (this.constructor as any).observedAttributes) {
+        let params = {};
+        const observedAttributes = (this.constructor as any).observedAttributes
+        console.log("observedAttributes: ", observedAttributes);
+        for (let attribute of observedAttributes) {
             params[attribute] = this.getAttribute(attribute);
         }
-        console.log("Params=",params)
+        params = {...params, ...this.state}
+        console.log("params for template: ", params)
         this.innerHTML = this.template(params);
-        // this.innerHTML = interpolateTemplateString(this.template, params);
     }
-
-    // protected getTemplate(params): string {
-    //     if (Object.values(params).includes(null)) {
-    //         return "";
-    //     }
-    //     return interpolateTemplateString(this.template, params);
-    // }
 
     static get observedAttributes(): string[] {
         return [];
