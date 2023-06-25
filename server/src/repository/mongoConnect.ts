@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import {config} from "./utils";
+import {config} from "../utils";
 import mongoUnit from "mongo-unit";
 
 //https://www.npmjs.com/package/serverless-mongodb-local

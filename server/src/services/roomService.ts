@@ -5,6 +5,7 @@ import {Room} from "./roomModels";
 //TODO: dblike
 //TODO: interface to work with WS
 //TODO: macros (e.g. title)
+//TODO: zip and cache
 
 const LAZY_REMOVE_TIMEOUT = 10; //sec;
 const userLateRemoveTimers: JsMap<string, any> = {}; //userId, timeoutId

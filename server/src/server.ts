@@ -1,7 +1,7 @@
 import express, {NextFunction, Request, Response} from "express";
 import expressWs from "express-ws";
 import roomsRoutes from "./controllers/roomsRoutes";
-import {mongoConnect} from "./mongoConnect";
+import {mongoConnect} from "./repository/mongoConnect";
 import {roomWsRoute} from "./controllers/roomWsRoute";
 
 const PORT = process.env.PORT || 3000;
@@ -22,12 +22,15 @@ app.get("/health", (req: Request, res: Response) => res.send("OK"));
 app.use("/api/rooms", roomsRoutes);
 appWs.app.ws("/api/roomState", roomWsRoute);
 
-console.log("__dirname="+__dirname);
-console.log(__dirname + '/../../client/dist');
-app.use('/', express.static(__dirname + '/../../client/dist'));
-// app.use(express.static(__dirname + "/public", {extensions: ["html"]}));
+const staticDir = __dirname + "/../../client/dist";
+console.log("staticDir=" + staticDir);
+app.use("/", express.static(staticDir));
 
 console.info("Application starting...")
 mongoConnect()
     .then(() => app.listen(PORT, () => console.info(`Application listening on ${PORT}`)))
     .catch((e) => console.error("Failed to connect to DB: ", e));
+
+//TODO ctrl+s для отправки сообщения
+//TODO webrtc ?
+//Create room animation
