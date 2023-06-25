@@ -1,3 +1,100 @@
-button {
-  color: red;
+* {
+    box-sizing: border-box;
 }
+
+body {
+    margin: 0;
+}
+
+.opa-content-layout {
+    height: 100vh;
+    width: 95vw;
+    padding: 20px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-areas:
+        "a a a"
+        "b b d"
+        "b b d"
+        "c c d";
+    gap: 5px;
+    grid-template-columns: auto auto minmax(150px, 20%);
+    grid-template-rows: 50px 1fr 1fr 50px;
+}
+
+.area-a {
+    grid-area: a;
+}
+
+.area-b {
+    grid-area: b;
+}
+
+.area-c {
+    grid-area: c;
+}
+
+.area-d {
+    grid-area: d;
+}
+
+.opa-header {
+}
+
+.opa-user-list {
+    border: 1px solid black;
+}
+
+.opa-chat-controls {
+    display: flex;
+    height: 100%;
+    align-items: center;
+    gap: 10px;
+}
+
+.opa-chat-controls > textarea {
+    height: 100%;
+    width: 100%;
+}
+
+.opa-chat-controls > ui5-button {
+    width: 100px;
+}
+
+.opa-messages {
+    border: 1px solid black;
+    overflow: auto;
+    height: 100%;
+}
+
+.opa-messages_item-date {
+    color: gray;
+}
+
+.opa-messages_item-author {
+    font-weight: bold;
+}
+
+.opa-messages_item {
+    display: flex;
+    padding-bottom: 5px;
+}
+
+.opa-messages_item > span {
+    padding-right: 3px;
+}
+
+.opa-messages_item._system {
+    font-size: x-small;
+    color: gray;
+    justify-content: center;
+}
+
+.opa-messages_item._system > .opa-messages_item-author {
+    display: none;
+}
+
+.user-name-component {
+    display: flex;
+}
+

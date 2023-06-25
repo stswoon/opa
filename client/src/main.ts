@@ -1,25 +1,24 @@
-import './style.css'
-import typescriptLogo from './typescript.svg'
-import viteLogo from '/vite.svg'
-import { setupCounter } from './counter.ts'
-import './AlpineWebComponent.ts'
+import "alpinejs/dist/cdn.min.js"
 
-document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
-  <div>
-    <a href="https://vitejs.dev" target="_blank">
-      <img src="${viteLogo}" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://www.typescriptlang.org/" target="_blank">
-      <img src="${typescriptLogo}" class="logo vanilla" alt="TypeScript logo" />
-    </a>
-    <h1>Vite + TypeScript</h1>
-    <div class="card">
-      <button id="counter" type="button"></button>
-    </div>
-    <p class="read-the-docs">
-      Click on the Vite and TypeScript logos to learn more
-    </p>
-  </div>
-`
+//https://sap.github.io/ui5-webcomponents/playground/components
+import "@ui5/webcomponents/dist/Button";
+import "@ui5/webcomponents/dist/List";
+import "@ui5/webcomponents/dist/StandardListItem";
+import "@ui5/webcomponents/dist/Dialog";
+import "@ui5/webcomponents/dist/Title";
+import "@ui5/webcomponents/dist/Toast";
+import "@ui5/webcomponents/dist/Input";
 
-setupCounter(document.querySelector<HTMLButtonElement>('#counter')!)
+import "./app/components/opa-header"
+import "./app/components/opa-messages"
+import "./app/components/opa-send-control"
+import "./app/components/opa-user-list"
+import "./app/components/opa-create-room-info"
+import "./app/components/opa-username-popup"
+
+import "./style.css"
+
+import {AppService} from "./app/services/AppService";
+
+(window as any).app = AppService;
+AppService.init();

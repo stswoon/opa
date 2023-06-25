@@ -12,10 +12,6 @@ const RoomSchema = new Schema({
 
 });
 
-//todo: https://www.npmjs.com/package/serverless-mongodb-local
-
-// todo: https://www.npmjs.com/package/mongodb
-
 const RoomModel = model<Room>("Room", RoomSchema);
 
 const routes = Router();
@@ -37,7 +33,6 @@ routes.post("/", async (req, res) => {
         if (countryExists) {
             return res.status(409).json({error: "There is already another country with this name"});
         }
-
         const newRoom = await RoomModel.create(room);
         return res.status(201).json(newRoom);
     } catch (error) {
