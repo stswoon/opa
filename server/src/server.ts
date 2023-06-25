@@ -23,7 +23,8 @@ app.use("/api/rooms", roomsRoutes);
 appWs.app.ws("/api/roomState", roomWsRoute);
 
 console.log("__dirname="+__dirname);
-app.use('/', express.static(__dirname + '/public'));
+console.log(__dirname + '/../../client/dist');
+app.use('/', express.static(__dirname + '/../../client/dist'));
 // app.use(express.static(__dirname + "/public", {extensions: ["html"]}));
 
 console.info("Application starting...")
