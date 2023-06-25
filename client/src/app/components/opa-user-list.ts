@@ -1,7 +1,9 @@
 import {AbstractComponent} from "../AbstractComponent";
 import {AppService} from "../services/AppService";
 import {strings} from "../strings";
+import {AppState} from "../services/AppStateModels";
 
+//@ts-ignore
 const template = ({users}) => {
     users = JSON.stringify(users || []);
     return `
@@ -20,7 +22,7 @@ const template = ({users}) => {
 class OpaUserList extends AbstractComponent {
     constructor() {
         super(template, {users: []});
-        AppService.onStateChange((appState) => {
+        AppService.onStateChange((appState: AppState) => {
             this.state.users = appState.users || [];
             this.render();
         });

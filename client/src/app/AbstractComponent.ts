@@ -23,7 +23,7 @@ export abstract class AbstractComponent extends HTMLElement {
     }
 
     protected render() {
-        let params = {};
+        let params: any = {};
         const observedAttributes = (this.constructor as any).observedAttributes
         //console.log("observedAttributes: ", observedAttributes);
         for (let attribute of observedAttributes) {
@@ -44,6 +44,7 @@ export abstract class AbstractComponent extends HTMLElement {
 
     private rendered: boolean = false;
 
+    //@ts-ignore
     private connectedCallback(): void {
         if (this.rendered) return;
         this.rendered = true;

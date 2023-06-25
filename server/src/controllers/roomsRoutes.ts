@@ -33,7 +33,6 @@ routes.post("/", async (req, res) => {
         if (countryExists) {
             return res.status(409).json({error: "There is already another country with this name"});
         }
-
         const newRoom = await RoomModel.create(room);
         return res.status(201).json(newRoom);
     } catch (error) {

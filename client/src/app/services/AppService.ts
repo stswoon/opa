@@ -17,7 +17,7 @@ const setNewUserId = (): void => {
 
 const showUsernamePopup = (): void => {
     // document.getElementById("opa-username-popup").setAttribute("username", getUserName() || "");
-    document.querySelector(".opa-username-component > ui5-input").setAttribute("value", getUserName() || "");
+    document.querySelector(".opa-username-component > ui5-input")!.setAttribute("value", getUserName() || "");
     const dialog: any = document.getElementById("opa-username-dialog");
     dialog.show();
 }
@@ -62,17 +62,17 @@ const init = (): void => {
 }
 
 const showRoom = (): void => {
-    document.getElementsByTagName("opa-messages")[0].style.display = "block";
-    document.getElementsByTagName("opa-send-control")[0].style.display = "block";
-    document.getElementsByTagName("opa-user-list")[0].style.display = "block";
-    document.getElementsByTagName("opa-create-room-info")[0].style.display = "none";
+    (<any>document.getElementsByTagName("opa-messages")[0]).style.display = "block";
+    (<any>document.getElementsByTagName("opa-send-control")[0]).style.display = "block";
+    (<any>document.getElementsByTagName("opa-user-list")[0]).style.display = "block";
+    (<any>document.getElementsByTagName("opa-create-room-info")[0]).style.display = "none";
 }
 
 const hideRoom = (): void => {
-    document.getElementsByTagName("opa-messages")[0].style.display = "none";
-    document.getElementsByTagName("opa-send-control")[0].style.display = "none";
-    document.getElementsByTagName("opa-user-list")[0].style.display = "none";
-    document.getElementsByTagName("opa-create-room-info")[0].style.display = "block";
+    (<any>document.getElementsByTagName("opa-messages")[0]).style.display = "none";
+    (<any>document.getElementsByTagName("opa-send-control")[0]).style.display = "none";
+    (<any>document.getElementsByTagName("opa-user-list")[0]).style.display = "none";
+    (<any>document.getElementsByTagName("opa-create-room-info")[0]).style.display = "block";
 }
 
 const send = (message: string): void => WsService.send({userId: getUserId(), text: message});

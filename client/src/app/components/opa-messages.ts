@@ -1,6 +1,8 @@
 import {AppService} from "../services/AppService";
 import {AbstractComponent} from "../AbstractComponent";
+import {AppState} from "../services/AppStateModels";
 
+//@ts-ignore
 const template = ({messages}) => {
     messages = JSON.stringify(messages || []);
     return `
@@ -20,7 +22,7 @@ const template = ({messages}) => {
 class OpaMessages extends AbstractComponent {
     constructor() {
         super(template, {messages: []});
-        AppService.onStateChange((appState) => {
+        AppService.onStateChange((appState: AppState) => {
             const messages = appState.messages.map(msg => {
                 let user = appState.users.find(user => user.id === msg.userId);
                 let userName = user ? user.name : msg.userId;
@@ -39,7 +41,7 @@ class OpaMessages extends AbstractComponent {
     render() {
         super.render();
         setTimeout(() => {
-            let objDiv = document.querySelector(".opa-messages");
+            let objDiv = document.querySelector(".opa-messages")!;
             objDiv.scrollTop = objDiv.scrollHeight;
         }, 0);
     }

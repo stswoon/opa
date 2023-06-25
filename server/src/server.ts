@@ -1,6 +1,5 @@
 import express, {NextFunction, Request, Response} from "express";
 import expressWs from "express-ws";
-import path from "path";
 import roomsRoutes from "./controllers/roomsRoutes";
 import {mongoConnect} from "./mongoConnect";
 import {roomWsRoute} from "./controllers/roomWsRoute";
@@ -24,7 +23,6 @@ app.use("/api/rooms", roomsRoutes);
 appWs.app.ws("/api/roomState", roomWsRoute);
 
 app.use(express.static(__dirname + "/public", {extensions: ["html"]}));
-// app.get("/room", (req: Request, res: Response) => res.sendFile(path.join(__dirname + "/public/index.html")));
 
 console.info("Application starting...")
 mongoConnect()

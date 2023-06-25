@@ -33,7 +33,7 @@ class OpaUsernamePopup extends AbstractComponent {
         dialogInput.value = AppService.getUserName();
 
         const dialogSaveButton = document.querySelector("#opa-username-dialog .opa-username-popup__save");
-        dialogSaveButton.addEventListener("click", () => {
+        dialogSaveButton!.addEventListener("click", () => {
             const username = dialogInput.value;
             if (username) {
                 AppService.setNewUserName(username);
@@ -44,7 +44,7 @@ class OpaUsernamePopup extends AbstractComponent {
         });
 
         const dialogChangeIdButton = document.querySelector("#opa-username-dialog .opa-username-popup__change-id");
-        dialogChangeIdButton.addEventListener("click", () => {
+        dialogChangeIdButton!.addEventListener("click", () => {
             AppService.setNewUserId();
             AppService.closeUsernamePopup();
         });

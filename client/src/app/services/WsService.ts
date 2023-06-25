@@ -36,7 +36,7 @@ const attachWsToRoom = (wsRoomConfig: WsRoomConfig, wsRoomCallback: WsRoomCallba
         ws.close(5000, "Client 30 sec timeout");
     }, CONNECTION_TIMEOUT);
 
-    let wsHeartbeatTimeoutId;
+    let wsHeartbeatTimeoutId: number;
 
     ws.onopen = () => {
         console.info("WS connected");
