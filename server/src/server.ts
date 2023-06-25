@@ -22,7 +22,9 @@ app.get("/health", (req: Request, res: Response) => res.send("OK"));
 app.use("/api/rooms", roomsRoutes);
 appWs.app.ws("/api/roomState", roomWsRoute);
 
-app.use(express.static(__dirname + "/public", {extensions: ["html"]}));
+console.log("__dirname="+__dirname);
+app.use('/', express.static(__dirname + '/public'));
+// app.use(express.static(__dirname + "/public", {extensions: ["html"]}));
 
 console.info("Application starting...")
 mongoConnect()
