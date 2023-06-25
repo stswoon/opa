@@ -11,7 +11,7 @@
     "start": "cd server && npm run start",
     "-----": "echo 0",
     "server:serve": "cd server && npm run serve",
-    "client:serve": "cd client && npm run dev",
+    "client:serve": "cd client && npm run serve",
     "server:ci-and-build": "cd server && npm ci && npm run build",
     "client:ci-and-build": "cd client && npm ci && npm run build",
     "client:copy": "cd server && npm run copyClientDist",

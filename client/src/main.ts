@@ -9,20 +9,16 @@ import "@ui5/webcomponents/dist/Title";
 import "@ui5/webcomponents/dist/Toast";
 import "@ui5/webcomponents/dist/Input";
 
+import "./app/components/opa-header"
+import "./app/components/opa-messages"
+import "./app/components/opa-send-control"
+import "./app/components/opa-user-list"
+import "./app/components/opa-create-room-info"
+import "./app/components/opa-username-popup"
+
+import "./style.css"
+
 import {AppService} from "./app/services/AppService";
+
 (window as any).app = AppService;
 AppService.init();
-
-import './style.css'
-
-import './app/components/opa-header'
-import './app/components/opa-messages'
-import './app/components/opa-send-control'
-import './app/components/opa-user-list'
-import './app/components/opa-create-room-info'
-import './app/components/opa-username-popup'
-
-//TODO
-// if ('serviceWorker' in navigator) {
-//     navigator.serviceWorker.register('sw.js', {scope: './'})
-// }

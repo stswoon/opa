@@ -2,11 +2,18 @@ import {v4 as uuid} from "uuid";
 import {WsRoomCallback, WsService} from "./WsService";
 import {AppState} from "./AppStateModels";
 
-const setUserNewId = (): void => setUserId(uuid());
 const setUserId = (userId: string): void => localStorage.setItem("userId", userId);
 const getUserId = (): string | null => localStorage.getItem("userId");
 const setUserName = (userName: string): void => localStorage.setItem("userName", userName);
 const getUserName = (): string | null => localStorage.getItem("userName");
+const setNewUserName = (userName: string): void => {
+    setUserName(userName);
+    init();
+}
+const setNewUserId = (): void => {
+    setUserId(uuid());
+    init();
+}
 
 const showUsernamePopup = (): void => {
     // document.getElementById("opa-username-popup").setAttribute("username", getUserName() || "");
@@ -27,7 +34,9 @@ const createRoom = (): void => {
     window.location.href = window.location.origin + "?room=" + roomId;
 };
 const leaveRoom = (): void => {
+    WsService.disconnect();
     roomId = null;
+    callbacks = [];
     window.location.href = window.location.origin;
 };
 
@@ -44,7 +53,7 @@ const init = (): void => {
     if (getUserName() == null) {
         setTimeout(() => {
             showUsernamePopup();
-        }); //show popup after it will be rendered
+        }); //wa to show popup after it will be rendered
         return;
     }
     if (roomId) {
@@ -71,10 +80,11 @@ const send = (message: string): void => WsService.send({userId: getUserId(), tex
 const connect = (roomId: string, userId: string, userName: string): void => {
     const wsRoomCallback: WsRoomCallback = {
         close(): void {
-            alert(close);
+            console.log("ws close");
         },
         error(error: Error): void {
-            alert(error.message);
+            console.error("WS error: ", error);
+            showError();
         },
         message(message: any): void {
             const state: AppState = message;
@@ -84,10 +94,10 @@ const connect = (roomId: string, userId: string, userName: string): void => {
     WsService.attachWsToRoom({roomId, userId, userName}, wsRoomCallback);
 }
 
-const processStateChange = (appState: AppState): void => {
-    callbacks.forEach(callback => callback(appState));
-}
+const showError = (): void => (window as any).wcToastError.show();
+
 let callbacks: Function[] = [];
+const processStateChange = (appState: AppState): void => callbacks.forEach(callback => callback(appState));
 const onStateChange = (callback: Function): any => {
     callbacks.push(callback);
     return {unsubscribe: () => callbacks = callbacks.filter(item => item != callback)};
@@ -97,13 +107,15 @@ export const AppService = {
     createRoom,
     leaveRoom,
     getRoomId,
-    setUserNewId,
-    setUserId,
+
     getUserId,
-    setUserName,
     getUserName,
+
     showUsernamePopup,
     closeUsernamePopup,
+
+    setNewUserId,
+    setNewUserName,
 
     init,
     send,

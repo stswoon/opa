@@ -12,10 +12,6 @@ const RoomSchema = new Schema({
 
 });
 
-//todo: https://www.npmjs.com/package/serverless-mongodb-local
-
-// todo: https://www.npmjs.com/package/mongodb
-
 const RoomModel = model<Room>("Room", RoomSchema);
 
 const routes = Router();

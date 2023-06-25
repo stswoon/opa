@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 import {config} from "./utils";
 import mongoUnit from "mongo-unit";
 
+//https://www.npmjs.com/package/serverless-mongodb-local
 const startLocalMongo = async () => {
     console.log("Local Mongo starting...");
     try {
@@ -15,8 +16,10 @@ const startLocalMongo = async () => {
     // return mongoUnit.stop()
 }
 
+//https://www.npmjs.com/package/mongodb
 export const mongoConnect = async () => {
-    if (true) {
+    if (config.isDisableMongo()) {
+        console.log(`Disable mongo`);
         return;
     }
     try {
@@ -33,5 +36,3 @@ export const mongoConnect = async () => {
         throw e;
     }
 }
-
-//todo: jsmaps for front

@@ -9,5 +9,6 @@ export type JsMap<K extends string, V> = { [key in K]: V; };
 
 console.debug("process.argv =", process.argv);
 export const config = {
-    isLocalMongo: (): boolean => process.argv.includes("--localMongo")
+    isLocalMongo: (): boolean => process.argv.includes("--localMongo"),
+    isDisableMongo: (): boolean => process.argv.includes("--disableMongo")
 }

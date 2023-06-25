@@ -4,7 +4,7 @@
   "scripts": {
     "start": "node dist/server.js",
     "build": "npm run clear && tsc",
-    "serve": "concurrently \"tsc --watch\" \"nodemon --delay 100ms dist/server.js --localMongo\"",
+    "serve": "concurrently \"tsc --watch\" \"nodemon --delay 100ms dist/server.js --localMongo --disableMongo\"",
     "clear": "rimraf server/dist",
     "copyClientDist": "cd ../client/dist && copyfiles --verbose ./**/* ../../server/dist/public"
   },

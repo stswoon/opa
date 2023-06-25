@@ -42,7 +42,7 @@ body {
 }
 
 .opa-user-list {
-    border: 1px solid red;
+    border: 1px solid black;
 }
 
 .opa-chat-controls {
@@ -62,7 +62,7 @@ body {
 }
 
 .opa-messages {
-    border: 1px solid red;
+    border: 1px solid black;
     overflow: auto;
     height: 100%;
 }

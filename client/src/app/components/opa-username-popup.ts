@@ -1,21 +1,22 @@
 import userLogo from "../icons/user.svg";
 import {AbstractComponent} from "../AbstractComponent";
 import {AppService} from "../services/AppService";
+import {strings} from "../strings";
 
 const template = ({username = ""}) => `
 <ui5-dialog id="opa-username-dialog">
     <div slot="header">
-        <ui5-title level="H5" slot="header">Change user name</ui5-title>
+        <ui5-title level="H5" slot="header">${strings.OpaUsernamePopup.changeUserName}</ui5-title>
     </div>
     <div class="opa-username-component">
         <img height="30" width="30" src="${userLogo}" />
         <ui5-input value="${username}"></ui5-input>
     </div>
     <div slot="footer">
-        <ui5-button class="opa-username-popup__save" design="Emphasized">Save</ui5-button>
-        <ui5-button class="opa-username-popup__change-id" design="Attention">Change ID</ui5-button>
+        <ui5-button class="opa-username-popup__save" design="Emphasized">${strings.OpaUsernamePopup.save}</ui5-button>
+        <ui5-button class="opa-username-popup__change-id" design="Attention">${strings.OpaUsernamePopup.changeId}</ui5-button>
     </div>
-    <ui5-toast id="wcToastTC" placement="TopCenter">Please enter username</ui5-toast>
+    <ui5-toast id="wcToastPopup" placement="TopCenter">${strings.OpaUsernamePopup.pleaseEnterUsername}</ui5-toast>
 </ui5-dialog>
 `;
 
@@ -35,16 +36,16 @@ class OpaUsernamePopup extends AbstractComponent {
         dialogSaveButton.addEventListener("click", () => {
             const username = dialogInput.value;
             if (username) {
-                AppService.setUserName(username);
+                AppService.setNewUserName(username);
                 AppService.closeUsernamePopup();
             } else {
-                (window as any).wcToastTC.show();
+                (window as any).wcToastPopup.show();
             }
         });
 
         const dialogChangeIdButton = document.querySelector("#opa-username-dialog .opa-username-popup__change-id");
         dialogChangeIdButton.addEventListener("click", () => {
-            AppService.setUserNewId();
+            AppService.setNewUserId();
             AppService.closeUsernamePopup();
         });
     }

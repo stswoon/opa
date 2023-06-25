@@ -1,5 +1,6 @@
 import {AbstractComponent} from "../AbstractComponent";
 import {AppService} from "../services/AppService";
+import {strings} from "../strings";
 
 const template = ({users}) => {
     users = JSON.stringify(users || []);
@@ -8,7 +9,7 @@ const template = ({users}) => {
             <template x-for="user in users">
                 <ui5-li
                     x-text="user.name"
-                    x-bind:additional-text="user.active ? '' : 'Inactive'"
+                    x-bind:additional-text="user.active ? '' : '${strings.OpaUserList.inactive}'"
                     additional-text-state="Information"
                 ></ui5-li>
             </template>

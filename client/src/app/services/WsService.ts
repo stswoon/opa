@@ -17,12 +17,17 @@ const CONNECTION_TIMEOUT = 30 * 1000;
 const PING_INTERVAL = 50 * 1000;
 
 const attachWsToRoom = (wsRoomConfig: WsRoomConfig, wsRoomCallback: WsRoomCallback): void => {
+    disconnect();
+
     let wsTry = 0;
 
     const {roomId, userId, userName} = wsRoomConfig;
     const wsProtocol = window.location.protocol === "https:" ? "wss" : "ws";
-    // const domain = window.location.host;
-    const domain = "localhost:3000"; //TODO
+    let domain = window.location.host;
+    if (domain.startsWith("localhost:")) {
+        console.log("use local dev domain");
+        domain = "localhost:3000";
+    }
 
     ws = new WebSocket(`${wsProtocol}://${domain}/api/roomState?roomId=${roomId}&userId=${userId}&userName=${userName}`);
 
@@ -83,7 +88,10 @@ const attachWsToRoom = (wsRoomConfig: WsRoomConfig, wsRoomCallback: WsRoomCallba
 
 const send = (message: any): void => ws.send(JSON.stringify(message));
 
+const disconnect = (): void => ws?.close();
+
 export const WsService = {
     attachWsToRoom,
-    send
+    send,
+    disconnect
 };
