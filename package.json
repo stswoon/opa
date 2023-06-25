@@ -1,9 +1,9 @@
 {
   "name": "opa-boilerplate",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "One Page App boilerplate",
   "engines": {
-    "node": "14.x"
+    "node": "18.x"
   },
   "license": "MIT",
   "scripts": {
