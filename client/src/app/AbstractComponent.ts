@@ -30,7 +30,7 @@ export abstract class AbstractComponent extends HTMLElement {
             params[attribute] = this.getAttribute(attribute);
         }
         params = {...params, ...this.state}
-        //console.log("params for template: ", params)
+        console.log(`Params for ${this.constructor.name} template: `, params);
         this.innerHTML = this.template(params);
     }
 

@@ -1,12 +1,10 @@
 export const strings = {
-    OpaCreateRoomInfo: {
-        createRoomFirst: "Create Room First"
-    },
     OpaHeader: {
         changeName: "Change Name",
         createRoom: "Create Room",
         leaveRoom: "Leave Room",
-        error: "Some error occurred"
+        error: "Some error occurred",
+        createRoomFirst: "Create Room First"
     },
     OpaSendControl: {
         send: "Send"

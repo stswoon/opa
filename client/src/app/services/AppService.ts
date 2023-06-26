@@ -65,14 +65,14 @@ const showRoom = (): void => {
     (<any>document.getElementsByTagName("opa-messages")[0]).style.display = "block";
     (<any>document.getElementsByTagName("opa-send-control")[0]).style.display = "block";
     (<any>document.getElementsByTagName("opa-user-list")[0]).style.display = "block";
-    (<any>document.getElementsByTagName("opa-create-room-info")[0]).style.display = "none";
+    (<any>document.getElementsByTagName("opa-header")[0]).setAttribute("room-exist", true);
 }
 
 const hideRoom = (): void => {
     (<any>document.getElementsByTagName("opa-messages")[0]).style.display = "none";
     (<any>document.getElementsByTagName("opa-send-control")[0]).style.display = "none";
     (<any>document.getElementsByTagName("opa-user-list")[0]).style.display = "none";
-    (<any>document.getElementsByTagName("opa-create-room-info")[0]).style.display = "block";
+    (<any>document.getElementsByTagName("opa-header")[0]).setAttribute("room-exist", false);
 }
 
 const send = (message: string): void => WsService.send({userId: getUserId(), text: message});

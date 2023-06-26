@@ -13,7 +13,6 @@ import "./app/components/opa-header"
 import "./app/components/opa-messages"
 import "./app/components/opa-send-control"
 import "./app/components/opa-user-list"
-import "./app/components/opa-create-room-info"
 import "./app/components/opa-username-popup"
 
 import "./style.css"

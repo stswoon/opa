@@ -41,6 +41,30 @@ body {
 .opa-header {
 }
 
+.opa-header > ._shake {
+    animation: shake 0.25s;
+    animation-delay: 1s;
+    animation-iteration-count: 5;
+}
+
+@keyframes shake {
+    0% {
+        transform: rotate(0deg);
+    }
+    25% {
+        transform: rotate(5deg);
+    }
+    50% {
+        transform: rotate(0deg);
+    }
+    75% {
+        transform: rotate(-5deg);
+    }
+    100% {
+        transform: rotate(0deg);
+    }
+}
+
 .opa-user-list {
     border: 1px solid black;
 }
