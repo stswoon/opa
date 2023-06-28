@@ -1,7 +1,7 @@
 import {AbstractComponent} from "../AbstractComponent";
 import {strings} from "../strings";
 
-const template = (params) => {
+const template = (params: any) => {
     const roomExist = params["room-exist"];
     return `
         <div class="opa-header" x-data='{ roomExist: ${roomExist} }'>

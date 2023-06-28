@@ -12,9 +12,23 @@ const template = () => `
 </div>
 `;
 
+
 class OpaSendControl extends AbstractComponent {
     constructor() {
         super(template);
+    }
+
+    protected render() {
+        super.render();
+
+        this.querySelector("textarea")!.addEventListener("keydown", e => {
+            if (e.ctrlKey && e.key === "s") {
+                e.preventDefault();
+                (<any>window).app.send((<any>e.target).value);
+                (<any>this.querySelector("textarea"))._x_model.set("")
+                //e.target.value = "";
+            }
+        });
     }
 }
 

@@ -4,8 +4,7 @@ import {Room} from "./roomModels";
 
 //TODO: dblike
 //TODO: interface to work with WS
-//TODO ctrl+s для отправки сообщения
-//TODO: docs
+
 
 const LAZY_REMOVE_TIMEOUT = 10; //sec;
 const userLateRemoveTimers: JsMap<string, any> = {}; //userId, timeoutId
