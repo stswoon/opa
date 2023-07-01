@@ -9,7 +9,6 @@ interface Room extends Document {
 const RoomSchema = new Schema({
     name: {type: String, unique: true},
     id: {type: String, unique: true}
-
 });
 
 const RoomModel = model<Room>("Room", RoomSchema);

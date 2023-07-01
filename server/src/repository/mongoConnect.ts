@@ -18,10 +18,6 @@ const startLocalMongo = async () => {
 
 //https://www.npmjs.com/package/mongodb
 export const mongoConnect = async () => {
-    if (config.isDisableMongo()) {
-        console.log(`Disable mongo`);
-        return;
-    }
     try {
         if (config.isLocalMongo()) {
             await startLocalMongo();

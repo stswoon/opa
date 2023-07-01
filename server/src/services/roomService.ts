@@ -1,82 +1,100 @@
-import {JsMap, utils, WS} from "../utils"
+import {uniqueNamesGenerator, adjectives, colors, animals} from "unique-names-generator";
 import {v4 as uuid} from "uuid";
-import {Room} from "./roomModels";
+import {JsMap, utils, WS} from "../utils";
+import {Room, User} from "./roomModels";
+
+const generateName = (): string => uniqueNamesGenerator({dictionaries: [adjectives, colors, animals]}); // big_red_donkey
 
 //TODO: dblike
 //TODO: interface to work with WS
+//TODO: sync client\server models
+//TODo: display room name
+//TODO: ids with type
+//TODO: remove room after 1 hour
 
+export class RoomService {
+    private readonly LAZY_REMOVE_TIMEOUT = 10 * 1000; //sec;
+    private readonly room: Room;
+    private readonly onDestroy: () => void;
 
-const LAZY_REMOVE_TIMEOUT = 10; //sec;
-const userLateRemoveTimers: JsMap<string, any> = {}; //userId, timeoutId
-
-const roomWsMap: JsMap<string, JsMap<string, WS>> = {}; //<roomId, <userId, WS>>
-const roomMap: JsMap<string, Room> = {}; //roomId
-
-export const createOrJoinRoom = (ws: WS, roomId: string, userId: string, userName: string): void => {
-    console.log(`User (${userName} : ${userId}) is entering in the room (${roomId})`);
-
-    if (roomMap[roomId] == null) {
-        roomMap[roomId] = {users: [], messages: []}
-        roomWsMap[roomId] = {};
+    constructor(roomId: string, onDestroy: () => void) {
+        this.room = {id: roomId, name: generateName(), users: [], messages: []};
+        this.onDestroy = onDestroy;
     }
-    let room = roomMap[roomId];
 
-    ws.on("message", function (msg: string) {
-        if (msg === "H") {
-            console.log(`client send heartbit H, userId=${userId}`);
+    private userWsConnections: JsMap<string, WS> = {};//<userId, WS>
+    private userLazyRemoveTimers: JsMap<string, any> = {}; //userId, timeoutId
+
+    joinRoom(ws: WS, userId: string, userName: string) {
+        console.log(`User (${userId} : ${userName}) is entering in the room (${this.room.id} : ${this.room.name})`);
+
+        if (this.userLazyRemoveTimers[userId]) {
+            clearTimeout(this.userLazyRemoveTimers[userId]);
+            delete this.userLazyRemoveTimers[userId];
+        }
+
+        const foundUser = this.getUser(userId);
+        if (foundUser) {
+            foundUser.name = userName;
+            foundUser.active = true;
         } else {
-            const parsedMsg = JSON.parse(msg);
-            room.messages.push({id: uuid(), text: parsedMsg.text, userId: parsedMsg.userId, date: utils.now()})
-            broadcastRoom(roomId);
+            this.room.users.push({id: userId, name: userName, active: true});
+            this.addMessage(`User "${userId}" was added`, "_system");
         }
-    });
-    ws.on("close", function () {
-        console.log(`WS for user (${userName} : ${userId}) in room (${roomId}) was closed`);
 
-        const foundUser = room.users.find(user => user.id === userId);
-        foundUser!.active = false;
-        broadcastRoom(roomId);
-        userLateRemoveTimers[userId] = setTimeout(() => {
-            console.log(`Finally remove for user (${userName} : ${userId}) in room (${roomId}) was closed`);
-            delete userLateRemoveTimers[userId];
-            room.users = room.users.filter(user => user.id !== userId);
-            room.messages.push({id: uuid(), text: `user "${userName}" left the room`, userId: "_system", date: utils.now()});
-            broadcastRoom(roomId);
-        }, LAZY_REMOVE_TIMEOUT * 1000);
+        this.userWsConnections[userId] = ws;
 
-        const isEmptyRoom = room.users.length === 0
-        if (isEmptyRoom) {
-            console.log(`Room (${roomId}) is empty so remove it`);
-            delete roomMap[roomId];
-            delete roomWsMap[roomId];
-            //todo remove after hour;
+        this.broadcastRoomState();
+    }
+
+    messageFromUser(userId: string, msg: string): void {
+        if (msg === "H") {
+            console.log(`Client send H (heartbeat), userId=${userId}`);
+            return;
         }
-    });
-    ws.on("error", function (err: any) {
-        console.error(`WS for user (${userName} : ${userId}) in room (${roomId}) was closed`, err);
-    });
+        const parsedMsg = JSON.parse(msg);
+        this.addMessage(parsedMsg.text, parsedMsg.userId);
+        this.broadcastRoomState();
+    }
 
-    if (userLateRemoveTimers[userId]) {
-        console.log(`Reconnect user (${userName} : ${userId}) in room (${roomId})`);
-        clearTimeout(userLateRemoveTimers[userId]);
-        delete userLateRemoveTimers[userId];
-    } else {
-        room.messages.push({id: uuid(), text: `user "${userName}" was added`, userId: "_system", date: utils.now()});
+    userDisconnect(userId: string): void {
+        console.log(`WS for user (${userId}) in room (${this.room.id}) was closed`);
+        delete this.userWsConnections[userId];
+        const foundUser = this.getUser(userId)!;
+        foundUser.active = false;
+        this.broadcastRoomState();
+        this.userLazyRemoveTimers[userId] = setTimeout(() => this.finalUserDisconnect(userId), this.LAZY_REMOVE_TIMEOUT);
     }
-    const foundUser = room.users.find(user => user.id === userId);
-    if (foundUser) {
-        foundUser.name = userName;
-        foundUser.active = true;
-    } else {
-        room.users.push({id: userId, name: userName, active: true});
+
+    private finalUserDisconnect(userId: string): void {
+        console.log(`Finally remove user (${userId}) from room (${this.room.id})`);
+        delete this.userLazyRemoveTimers[userId];
+        this.room.users = this.room.users.filter(user => user.id !== userId);
+        this.addMessage(`user "${userId}" left the room`, "_system");
+        this.broadcastRoomState();
+
+        if (Object.values(this.userWsConnections).length == 0) {
+            setTimeout(() => {
+                if (Object.values(this.userWsConnections).length == 0) {
+                    console.log(`Finally remove roomService (${this.room.id})`);
+                    this.onDestroy();
+                }
+            }, this.LAZY_REMOVE_TIMEOUT);
+        }
     }
-    roomWsMap[roomId][userId] = ws;
-    broadcastRoom(roomId);
+
+    private broadcastRoomState(): void {
+        console.log(`Broadcast room (${this.room.id}) to users: ${Object.keys(this.userWsConnections).join(", ")}`);
+        Object.values(this.userWsConnections).forEach((ws: WS) => ws.send(JSON.stringify(this.room)));
+    }
+
+    private addMessage(text: string, userId: string | "_system"): void {
+        this.room.messages.push({id: uuid(), text, userId, date: utils.now()});
+    }
+
+    private getUser(id: string): User | null {
+        return this.room.users.find(user => user.id === id)!;
+    }
 }
 
-const broadcastRoom = (roomId: string): void => {
-    const userWsMap = roomWsMap[roomId];
-    console.log(`Broadcast room (${roomId}) to users: ${Object.keys(userWsMap).join(', ')}`);
-    let room = roomMap[roomId];
-    Object.values(userWsMap).forEach((ws: WS) => ws.send(JSON.stringify(room)));
-}
+
