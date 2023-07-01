@@ -73,9 +73,9 @@ export class RoomService {
         this.addMessage(`user "${userId}" left the room`, "_system");
         this.broadcastRoomState();
 
-        if (Object.values(this.userWsConnections).length == 0) {
+        if (Object.values(this.userWsConnections).length === 0) {
             setTimeout(() => {
-                if (Object.values(this.userWsConnections).length == 0) {
+                if (Object.values(this.userWsConnections).length === 0) {
                     console.log(`Finally remove roomService (${this.room.id})`);
                     this.onDestroy();
                 }
