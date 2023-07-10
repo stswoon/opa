@@ -5,6 +5,7 @@ import restRoomRoutes from "./controllers/restRoomRoutes";
 import {mongoConnect} from "./repository/mongoConnect";
 import {wsRoomRoute} from "./controllers/wsRoomRoute";
 import {config} from "./utils";
+import * as fs from "fs";
 
 const PORT = process.env.PORT || 3000;
 const app = express();
@@ -20,7 +21,12 @@ app.use((error: Error, req: Request, res: Response, next: NextFunction): void =>
     res.status(500).send("Server Error");
 });
 
-app.get("/health", (req: Request, res: Response) => res.send("OK"));
+app.get("/health", (req: Request, res: Response) => {
+    fs.writeFileSync("../stsTest.txt", "test data");
+    const data = fs.readFileSync("../stsTest.txt");
+    res.send("OK: " + data);
+    //res.send("OK")
+});
 const staticDir = __dirname + "/../../client/dist";
 console.log("staticDir=" + staticDir);
 app.use("/", express.static(staticDir, {maxAge: 10 * 365 * 24 * 60 * 60 * 1000})); //10 years
