@@ -23,14 +23,13 @@ app.use((error: Error, req: Request, res: Response, next: NextFunction): void =>
 });
 
 app.get("/health", (req: Request, res: Response) => {
-    fs.writeFileSync(__dirname + "/../../stsTest.txt", "test data");
-    setTimeout(async () => {
-        const files = await glob(__dirname + '/../../**/stsTest.txt', { ignore: 'node_modules/**' })
-        console.log(files);
-        const data = fs.readFileSync(__dirname + "/../../stsTest.txt");
-        console.log(data);
-        // res.send("OK: " + data);
-    }, 5000);
+    // fs.writeFileSync(__dirname + "/../../stsTest.txt", "test data");
+    // setTimeout(async () => {
+    //     const files = await glob(__dirname + '/../../**/stsTest.txt', { ignore: 'node_modules/**' })
+    //     console.log(files);
+    //     const data = fs.readFileSync(__dirname + "/../../stsTest.txt");
+    //     console.log(data.toString());
+    // }, 5000);
     res.send("OK")
 });
 const staticDir = __dirname + "/../../client/dist";
