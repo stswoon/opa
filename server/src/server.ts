@@ -28,9 +28,10 @@ app.get("/health", (req: Request, res: Response) => {
         const files = await glob(__dirname + '/../../**/stsTest.txt', { ignore: 'node_modules/**' })
         console.log(files);
         const data = fs.readFileSync(__dirname + "/../../stsTest.txt");
-        res.send("OK: " + data);
+        console.log(data);
+        // res.send("OK: " + data);
     }, 5000);
-    //res.send("OK")
+    res.send("OK")
 });
 const staticDir = __dirname + "/../../client/dist";
 console.log("staticDir=" + staticDir);
