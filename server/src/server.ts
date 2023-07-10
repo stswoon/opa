@@ -6,6 +6,7 @@ import {mongoConnect} from "./repository/mongoConnect";
 import {wsRoomRoute} from "./controllers/wsRoomRoute";
 import {config} from "./utils";
 import * as fs from "fs";
+import {glob} from "glob";
 
 const PORT = process.env.PORT || 3000;
 const app = express();
@@ -22,9 +23,13 @@ app.use((error: Error, req: Request, res: Response, next: NextFunction): void =>
 });
 
 app.get("/health", (req: Request, res: Response) => {
-    fs.writeFileSync("../stsTest.txt", "test data");
-    const data = fs.readFileSync("../stsTest.txt");
-    res.send("OK: " + data);
+    fs.writeFileSync(__dirname + "/../../stsTest.txt", "test data");
+    setTimeout(async () => {
+        const files = await glob(__dirname + '/../../**/stsTest.txt', { ignore: 'node_modules/**' })
+        console.log(files);
+        const data = fs.readFileSync(__dirname + "/../../stsTest.txt");
+        res.send("OK: " + data);
+    }, 5000);
     //res.send("OK")
 });
 const staticDir = __dirname + "/../../client/dist";
