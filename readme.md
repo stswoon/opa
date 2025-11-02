@@ -19,3 +19,12 @@ Links
 //TODO webrtc ?
 //TODO how to add plugin for railway
 
+
+
+
+
+
+
+
+!!!!!!!!!!! https://webrtc.github.io/samples/src/content/peerconnection/pc1/
+!!!!!!!!!!! https://habr.com/ru/articles/800699/
