@@ -17,6 +17,11 @@ export const strings = {
         save: "Save",
         changeId: "Change ID",
         pleaseEnterUsername: "Please enter username",
+    },
+    OpaCall: {
+        setupPeer: "Init peer",
+        callPeer: "Call",
+        hangUpPeer: "HangUp"
     }
 };
 

@@ -14,6 +14,7 @@ import "./app/components/opa-messages"
 import "./app/components/opa-send-control"
 import "./app/components/opa-user-list"
 import "./app/components/opa-username-popup"
+import "./app/components/opa-call"
 
 import "./style.css"
 

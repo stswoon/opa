@@ -3,7 +3,7 @@
     "version": "0.1.0",
     "description": "One Page App boilerplate",
     "engines": {
-        "node": "18.x"
+        "node": "18.x || 22.x"
     },
     "license": "MIT",
     "scripts": {

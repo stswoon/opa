@@ -15,8 +15,8 @@ body {
     grid-template-areas:
         "a a a"
         "b b d"
-        "b b d"
-        "c c d";
+        "b b e"
+        "c c e";
     gap: 5px;
     grid-template-columns: auto auto minmax(150px, 20%);
     grid-template-rows: 50px 1fr 1fr 50px;
@@ -89,6 +89,7 @@ body {
     border: 1px solid black;
     overflow: auto;
     height: 100%;
+    max-width: 70vw;
 }
 
 .opa-messages_item-date {
@@ -120,5 +121,11 @@ body {
 
 .user-name-component {
     display: flex;
+}
+
+.opa-call {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
 }
 
